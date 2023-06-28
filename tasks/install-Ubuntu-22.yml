@@ -1,0 +1,13 @@
+---
+
+- name: Install Ubuntu-22 | Add Fluentbit apt-key
+  apt_key:
+    url: '{{ fluentbit_apt_key }}'
+    state: present
+
+- name: Install Ubuntu-22 | Add Fluentbit repository
+  apt_repository:
+    repo: '{{ fluentbit_apt22_repo }}'
+    state: present
+    filename: fluent-bit
+    update_cache: true

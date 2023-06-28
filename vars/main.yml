@@ -1,0 +1,35 @@
+---
+# Default Service 
+#fluentbit_service_flush_seconds: 120
+#fluentbit_service_daemon: false
+#fluentbit_service_custom_parsers_file: []
+#fluentbit_service_log_level: info
+#fluentbit_service_enable_metrics: false
+#fluentbit_service_metrics_listen_ip: 0.0.0.0
+#fluentbit_service_metrics_listen_port: 2020
+
+# Default inputs
+#fluentbit_inputs: []
+
+# Default filters
+#fluentbit_filters: []
+
+# Default outputs
+#fluentbit_outputs: [] 
+
+# Additional config files
+#fluentbit_additional_conf_files: []
+
+# Additional Parser
+#fluentbit_custom_parsers: []
+
+# Repo for Ubuntu
+fluentbit_apt20_repo: 'deb https://packages.fluentbit.io/ubuntu/focal focal main'
+fluentbit_apt22_repo: 'deb https://packages.fluentbit.io/ubuntu/jammy jammy main'
+
+# Key for Fluentbit
+fluentbit_apt_key: 'https://packages.fluentbit.io/fluentbit.key'
+
+#BaseURL for CentOS
+fluentbit_yum7_baseurl: 'http://packages.fluentbit.io/centos/7/$basearch/'
+fluentbit_yum8_baseurl: 'http://packages.fluentbit.io/centos/8/$basearch/'

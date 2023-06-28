@@ -1,0 +1,38 @@
+[SERVICE]
+    Flush        {{ fluentbit_service_flush_seconds }}
+    Daemon       {{ (fluentbit_service_daemon | bool) | ternary('On', 'Off' ) }}
+    Log_Level    {{ fluentbit_service_log_level }}
+{% if fluentbit_service_storage_path is defined %}
+    # enable filesystem buffering
+    storage.path {{ fluentbit_service_storage_path }}
+{% endif %}
+    Parsers_File parsers.conf
+{% if fluentbit_service_custom_parsers_file is defined %}
+    Parsers_File {{ fluentbit_service_custom_parsers_file }}
+{% endif %}
+
+    Plugins_File plugins.conf
+    HTTP_Server  {{ (fluentbit_service_enable_metrics | bool) | ternary('On', 'Off' ) }}
+    HTTP_Listen  {{ fluentbit_service_metrics_listen_ip }}
+    HTTP_Port    {{ fluentbit_service_metrics_listen_port }}
+
+{% if fluentbit_inputs is defined %}
+[INPUT]
+{% for key in input %}
+    {{ key }} {{ input[key] }}
+{% endfor %}
+{% endif %}
+
+{% if fluentbit_outputs is defined %}
+[OUTPUT]
+{% for key in input %}
+    {{ key }} {{ input[key] }}
+{% endfor %}
+{% endif %}
+
+{% if fluentbit_filters is defined %}
+[FILTER]
+{% for key in input %}
+    {{ key }} {{ input[key] }}
+{% endfor %}
+{% endif %}

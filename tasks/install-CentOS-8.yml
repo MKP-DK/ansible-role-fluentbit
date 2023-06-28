@@ -1,0 +1,17 @@
+---
+
+- name: Install CentOS-8 | Download FluentBit package
+  yum_repository:
+    name: fluent-bit
+    description: Fluentbit repo
+    baseurl: '{{ fluentbit_yum8_baseurl }}'
+    gpgcheck: true
+    gpgkey: '{{ fluentbit_apt_key }}'
+    enabled: true
+
+- name: Install CentOS-8 | Install Fluentbit package
+  package:
+    name: fluent-bit
+    state: present
+    update_cache: true
+  notify: restart fluentbit service

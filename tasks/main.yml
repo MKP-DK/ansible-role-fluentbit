@@ -1,0 +1,12 @@
+---
+
+- name: Before install
+  include_tasks: beforeinstall.yml
+  tags: ['beforeinstall']
+
+- name: Install Fluentbit
+  include_tasks: 'install-{{ ansible_distribution }}-{{ ansible_distribution_major_version }}.yml'
+  tags: ['installfluentbit']
+
+- import_tasks: configure.yml
+  tags: ['configure']

@@ -1,0 +1,45 @@
+---
+
+# Default Service
+#fluentbit_service_flush_seconds: 120
+#fluentbit_service_daemon: false
+#fluentbit_service_custom_parsers_file: []
+#fluentbit_service_storage_path: []
+#fluentbit_service_log_level: info
+#fluentbit_service_enable_metrics: false
+#fluentbit_service_metrics_listen_ip: 0.0.0.0
+#fluentbit_service_metrics_listen_port: 2020
+
+# Default inputs
+#fluentbit_inputs: []
+# - {"Name": "node_exporter_metrics", "Tag": "node_metrics", "Scrape_interval":  "2"}
+# - {"Name": "tail", "Tag": "apache_${HOSTNAME}", "Path": "/etc/httpd/logs/access_log", "read_from_head": "true", "Parser": "apache"}
+# - {"Name": "tail", "Tag": "nginx_${HOSTNAME}", "Path": "/var/log/nginx/access.log", "read_from_head": "true", "Parser": "nginx"}
+
+# Default filters
+#fluentbit_filters: []
+# - {"Name": "record_modifier", "Match": "disk_*", "Record logtype": "disk", "Record hostname": "${HOSTNAME}", "Record service_name": "FluentBit"}
+# - {"Name": "record_modifier", "Match": "nginx_*", "Record logtype": "nginx", "Record hostname": "${HOSTNAME}", "Record service_name": FluentBit}
+
+# Default outputs
+#fluentbit_outputs: []
+# - {"Name": "prometheus_exporter", "Match": "node_metrics", "Host": "0.0.0.0", "Port": "2021"}
+# - {"Name": "forward", "Match": "*", "Host": "10.7.0.5", "Port": "24224", "Shared_Key": "Qwerty!", "Self_Hostname": "${HOSTNAME}", "tls": "on", "tls.verify": "off"}
+
+# Additional config files
+#fluentbit_additional_conf_files: []
+
+# Repo for Ubuntu
+fluentbit_apt20_repo: 'deb https://packages.fluentbit.io/ubuntu/focal focal main'
+fluentbit_apt22_repo: 'deb https://packages.fluentbit.io/ubuntu/jammy jammy main'
+
+# Key for Fluentbit
+fluentbit_apt_key: 'https://packages.fluentbit.io/fluentbit.key'
+
+# BaseURL for CentOS
+fluentbit_yum7_baseurl: 'http://packages.fluentbit.io/centos/7/'
+fluentbit_yum8_baseurl: 'http://packages.fluentbit.io/centos/8/'
+
+# Environment variables - KEEP SECRET IN PRODUCTION
+fluentd_certpass: CERTPASS=Nordcloud2023!
+fleuntd_sharedkey: SHAREDKEY=Qwerty!
