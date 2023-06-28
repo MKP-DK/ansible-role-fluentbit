@@ -15,3 +15,11 @@
     state: present
     update_cache: true
   notify: restart fluentbit service
+
+- name: Install CentOS-7 | Create dynamic conf directory
+  file:
+    path: /etc/fluent-bit/dynamic/
+    owner: root
+    group: root
+    mode: 0644
+    state: directory

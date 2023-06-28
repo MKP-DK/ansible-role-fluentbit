@@ -1,26 +1,29 @@
 [SERVICE]
-{% if fluentbit_service_flush_seconds is defined %}
-    Flush        {{ fluentbit_service_flush_seconds }}
+{% if static_flush_seconds is defined %}
+    Flush        {{ static_flush_seconds }}
 {% endif %}
-{% if fluentbit_service_daemon is defined %}
-    Daemon       {{ (fluentbit_service_daemon | bool) | ternary('On', 'Off' ) }}
+{% if static_daemon is defined %}
+    Daemon       {{ (static_daemon | bool) | ternary('On', 'Off' ) }}
 {% endif %}
-{% if fluentbit_service_log_level is defined %}
-    Log_Level    {{ fluentbit_service_log_level }}
+{% if static_log_level is defined %}
+    Log_Level    {{ static_log_level }}
 {% endif %}    
-{% if fluentbit_service_storage_path is defined %}
-    storage.path {{ fluentbit_service_storage_path }}
+{% if static_storage_path is defined %}
+    storage.path {{ static_storage_path }}
 {% endif %}
     Parsers_File parsers.conf
+{% if static_parsers_file is defined %}
+    storage.path {{ static_parsers_file }}
+{% endif %}
     Plugins_File plugins.conf
-{% if fluentbit_service_enable_metrics is defined %}
-    HTTP_Server  {{ (fluentbit_service_enable_metrics | bool) | ternary('On', 'Off' ) }}
+{% if static_enable_metrics is defined %}
+    HTTP_Server  {{ (static_enable_metrics | bool) | ternary('On', 'Off' ) }}
 {% endif %}
-{% if fluentbit_service_metrics_listen_ip is defined %}
-    HTTP_Listen  {{ fluentbit_service_metrics_listen_ip }}
+{% if static_metrics_listen_ip is defined %}
+    HTTP_Listen  {{ static_metrics_listen_ip }}
 {% endif %}
-{% if fluentbit_service_metrics_listen_port is defined %}
-    HTTP_Port    {{ fluentbit_service_metrics_listen_port }}
+{% if static_metrics_listen_port is defined %}
+    HTTP_Port    {{ static_metrics_listen_port }}
 {% endif %}
 [INPUT]
 #ONLY STATIC CONFIG IN THIS SECTION

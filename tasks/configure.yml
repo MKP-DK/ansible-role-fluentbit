@@ -1,17 +1,24 @@
 ---
 
-- name: Configure | Source Fluentbit main conf
+- name: Configure | Source Fluentbit static conf
   template:
     src: fluent-bit.conf.j2
     dest: /etc/fluent-bit/fluent-bit.conf
     mode: 0644
   notify: restart fluentbit service
 
-- name: Configure | Source additional Fluentbit conf
+- name: Configure | Source Fluentbit dynamic conf
   template:
-    src: '{{ item.template }}'
-    dest: '/etc/fluent-bit/dynamic{{ item.name }}'
+    src: dynamic.conf.j2
+    dest: /etc/fluent-bit/dynamic/dynamic.conf
     mode: 0644
-  with_items: '{{ fluentbit_additional_conf_files }}'
-  when: fluentbit_additional_conf_files | length >0
   notify: restart fluentbit service
+
+#- name: Configure | Source additional Fluentbit conf
+#  template:
+#    src: '{{ item.template }}'
+#    dest: '/etc/fluent-bit/dynamic{{ item.name }}'
+#    mode: 0644
+#  with_items: '{{ fluentbit_additional_conf_files }}'
+#  when: fluentbit_additional_conf_files | length >0
+#  notify: restart fluentbit service

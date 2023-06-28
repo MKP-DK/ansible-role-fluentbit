@@ -14,5 +14,3 @@
   shell: 
      "source /etc/environment"
   register: sourceenvironment
-
-  
