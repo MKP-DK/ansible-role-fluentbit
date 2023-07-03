@@ -1,27 +1,38 @@
-- hosts: test
+- hosts: bittest
   become: yes
   roles:
     - role: fluentbitcentos
       vars:
-        fluentbit_inputs:
+        fluentd_certpass: CERTPASS=Nordcloud2023!
+        fluentd_host: 10.7.0.4
+        fluentd_port: 24224
+        fluentd_sharedkey: SHAREDKEY=Qwerty!
+        prometheus_port: 2021
+        static_flush_seconds: 5
+        static_daemon: off
+        static_log_level: info
+        dynamic_inputs:
           - name: cpu
             tag: cpu_${HOSTNAME}
             interval_Sec: 60
-        fluentbit_filters:
-          - name: record_modifier
-            match: cpu_*
-            0__record: logtype cpu
-            1__record: hostname ${HOSTNAME}
-            2__record: service_name FluentBit
-        fluentbit_outputs:
-          - name: forward
-            match: '*'
-            host: 10.7.0.5
-            port: 24224
-            shared_key: ${SHAREDKEY}
-            self_hostname: ${HOSTNAME}
-            tls: 'on'
-          - name: "prometheus_exporter"
-            match: node_metrics
-            host: 0.0.0.0
-            port: 2021
+          - name: mem
+            tag:  mem_${HOSTNAME}
+            interval_Sec: 120
+#        fluentbit_filters:
+#          - name: record_modifier
+#            match: cpu_*
+#            0__record: logtype cpu
+#            1__record: hostname ${HOSTNAME}
+#            2__record: service_name FluentBit
+#        fluentbit_outputs:
+#          - name: forward
+#            match: '*'
+#            host: 10.7.0.5
+#            port: 24224
+#            shared_key: ${SHAREDKEY}
+#            self_hostname: ${HOSTNAME}
+#            tls: 'on'
+#          - name: "prometheus_exporter"
+#            match: node_metrics
+#            host: 0.0.0.0
+#            port: 2021

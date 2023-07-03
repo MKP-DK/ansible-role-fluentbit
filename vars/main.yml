@@ -1,35 +1,66 @@
 ---
-# Default Service 
-#fluentbit_service_flush_seconds: 120
-#fluentbit_service_daemon: false
-#fluentbit_service_custom_parsers_file: []
-#fluentbit_service_log_level: info
-#fluentbit_service_enable_metrics: false
-#fluentbit_service_metrics_listen_ip: 0.0.0.0
-#fluentbit_service_metrics_listen_port: 2020
+
+# Default Static Service
+#static_flush_seconds: 120
+#static_daemon: false
+#static_log_level: info
+#static_parsers_file: []
+#static_plugins_file: []
+#static_enable_metrics: false
+#static_metrics_listen_ip: 0.0.0.0
+#static_metrics_listen_port: 2020
+#static_storage_metrics: []
+#static_storage_path: []
+#static_storage_sync: []
+#static_storage_checksum: []
+#static_storage_backlog_mam_limit: []
+
+# Default Dynamic Service
+#dynamic_flush_seconds: 120
+#dynamic_daemon: false
+#dynamic_log_level: info
+#dynamic_parsers_file: []
+#dynamic_plugins_file: []
+#dynamic_enable_metrics: false
+#dynamic_metrics_listen_ip: 0.0.0.0
+#dynamic_metrics_listen_port: 2020
+#dynamic_storage_metrics: []
+#dynamic_storage_path: []
+#dynamic_storage_sync: []
+#dynamic_storage_checksum: []
+#dynamic_storage_backlog_mam_limit: []
+
 
 # Default inputs
 #fluentbit_inputs: []
+# - {"Name": "node_exporter_metrics", "Tag": "node_metrics", "Scrape_interval":  "2"}
+# - {"Name": "tail", "Tag": "apache_${HOSTNAME}", "Path": "/etc/httpd/logs/access_log", "read_from_head": "true", "Parser": "apache"}
+# - {"Name": "tail", "Tag": "nginx_${HOSTNAME}", "Path": "/var/log/nginx/access.log", "read_from_head": "true", "Parser": "nginx"}
 
 # Default filters
 #fluentbit_filters: []
+# - {"Name": "record_modifier", "Match": "disk_*", "Record logtype": "disk", "Record hostname": "${HOSTNAME}", "Record service_name": "FluentBit"}
+# - {"Name": "record_modifier", "Match": "nginx_*", "Record logtype": "nginx", "Record hostname": "${HOSTNAME}", "Record service_name": FluentBit}
 
 # Default outputs
-#fluentbit_outputs: [] 
-
-# Additional config files
-#fluentbit_additional_conf_files: []
-
-# Additional Parser
-#fluentbit_custom_parsers: []
+#fluentbit_outputs: []
+# - {"Name": "prometheus_exporter", "Match": "node_metrics", "Host": "0.0.0.0", "Port": "2021"}
+# - {"Name": "forward", "Match": "*", "Host": "10.7.0.5", "Port": "24224", "Shared_Key": "Qwerty!", "Self_Hostname": "${HOSTNAME}", "tls": "on", "tls.verify": "off"}
 
 # Repo for Ubuntu
-fluentbit_apt20_repo: 'deb https://packages.fluentbit.io/ubuntu/focal focal main'
-fluentbit_apt22_repo: 'deb https://packages.fluentbit.io/ubuntu/jammy jammy main'
+fluentbit_apt20_repo: 'deb https://packages.fluentbit.io/ubuntu/focal'
+fluentbit_apt22_repo: 'deb https://packages.fluentbit.io/ubuntu/jammy'
 
 # Key for Fluentbit
 fluentbit_apt_key: 'https://packages.fluentbit.io/fluentbit.key'
 
-#BaseURL for CentOS
-fluentbit_yum7_baseurl: 'http://packages.fluentbit.io/centos/7/$basearch/'
-fluentbit_yum8_baseurl: 'http://packages.fluentbit.io/centos/8/$basearch/'
+# BaseURL for CentOS
+fluentbit_yum7_baseurl: 'http://packages.fluentbit.io/centos/7/'
+fluentbit_yum8_baseurl: 'http://packages.fluentbit.io/centos/8/'
+
+# Variables - KEEP SECRET IN PRODUCTION
+#fluentd_certpass: CERTPASS=Nordcloud2023!
+#fluentd_sharedkey: SHAREDKEY=Qwerty!
+#fluentd_host: 10.7.0.4
+#fluentd_port: 24224
+#prometheus_port: 2021

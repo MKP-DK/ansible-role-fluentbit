@@ -32,7 +32,7 @@
 
 
 # Default inputs
-#fluentbit_inputs: []
+#fluentbit_inputs: [] 
 # - {"Name": "node_exporter_metrics", "Tag": "node_metrics", "Scrape_interval":  "2"}
 # - {"Name": "tail", "Tag": "apache_${HOSTNAME}", "Path": "/etc/httpd/logs/access_log", "read_from_head": "true", "Parser": "apache"}
 # - {"Name": "tail", "Tag": "nginx_${HOSTNAME}", "Path": "/var/log/nginx/access.log", "read_from_head": "true", "Parser": "nginx"}
@@ -47,9 +47,6 @@
 # - {"Name": "prometheus_exporter", "Match": "node_metrics", "Host": "0.0.0.0", "Port": "2021"}
 # - {"Name": "forward", "Match": "*", "Host": "10.7.0.5", "Port": "24224", "Shared_Key": "Qwerty!", "Self_Hostname": "${HOSTNAME}", "tls": "on", "tls.verify": "off"}
 
-# Additional config files
-#fluentbit_additional_conf_files: []
-
 # Repo for Ubuntu
 fluentbit_apt20_repo: 'deb https://packages.fluentbit.io/ubuntu/focal'
 fluentbit_apt22_repo: 'deb https://packages.fluentbit.io/ubuntu/jammy'
@@ -61,6 +58,12 @@ fluentbit_apt_key: 'https://packages.fluentbit.io/fluentbit.key'
 fluentbit_yum7_baseurl: 'http://packages.fluentbit.io/centos/7/'
 fluentbit_yum8_baseurl: 'http://packages.fluentbit.io/centos/8/'
 
-# Environment variables - KEEP SECRET IN PRODUCTION
-fluentd_certpass: CERTPASS=Nordcloud2023!
-fleuntd_sharedkey: SHAREDKEY=Qwerty!
+# Variables - KEEP SECRET IN PRODUCTION
+#fluentd_certpass: CERTPASS=Nordcloud2023!
+#fluentd_sharedkey: SHAREDKEY=Qwerty!
+#fluentd_host: 10.7.0.4
+#fluentd_port: 24224
+#prometheus_port: 2021
+fluentbit_input: '[INPUT]'
+fluentbit_filter: '[FILTER]'
+fluentbit_output: '[OUTPUT]'

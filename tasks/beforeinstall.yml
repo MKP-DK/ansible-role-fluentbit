@@ -2,15 +2,15 @@
 
 - name: "Before Installation | Set fluentXvars"
   blockinfile:
-    dest: /etc/environment
+    dest: /etc/sysconfig/fluent-bit
     backup: no
     insertafter: EOF
     content: |
-      '{{ fluentd_certpass }}'
-      '{{ fleuntd_sharedkey }}'
+      {{ fluentd_certpass }}
+      {{ fluentd_sharedkey }}
   register: fluentvars
 
-- name: "Before Installation | source /etc/environment"
+- name: "Before Installation | source /etc/sysconfig/fluent-bit"
   shell: 
-     "source /etc/environment"
-  register: sourceenvironment
+     "source /etc/sysconfig/fluent-bit"
+  register: sourcefbsysconfig

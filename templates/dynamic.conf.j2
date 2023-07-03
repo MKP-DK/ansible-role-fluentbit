@@ -1,22 +1,99 @@
-### DYNAMIC CONFIGURATION FILE
-
+### DYNAMIC CONFIGURATION FILE DONT SET SERVICE - ONLY IN STATIC
 {% if dynamic_inputs is defined %}
+{% for input in dynamic_inputs %}
 [INPUT]
 {% for key in input %}
-    {{ key }} {{ input[key] }}
+    {{ key | regex_replace ('^[0-9]+__', '') }} {{ input[key] }}
+{% endfor %}
+{% endfor %}
+{% endif %}
+
+{% if dynamic1_inputs is defined %}
+{% for input in dynamic1_inputs %}
+[INPUT]
+{% for key in input %}
+    {{ key | regex_replace ('^[0-9]+__', '') }} {{ input[key] }}
+{% endfor %}
+{% endfor %}
+{% endif %}
+
+{% if dynamic2_inputs is defined %}
+{% for input in dynamic2_inputs %}
+[INPUT]
+{% for key in input %}
+    {{ key | regex_replace ('^[0-9]+__', '') }} {{ input[key] }}
+{% endfor %}
+{% endfor %}
+{% endif %}
+
+{% if dynamic3_inputs is defined %}
+{% for input in dynamic3_inputs %}
+[INPUT]
+{% for key in input %}
+    {{ key | regex_replace ('^[0-9]+__', '') }} {{ input[key] }}
+{% endfor %}
+{% endfor %}
+{% endif %}
+
+{% if dynamic4_inputs is defined %}
+{% for input in dynamic3_inputs %}
+[INPUT]
+{% for key in input %}
+    {{ key | regex_replace ('^[0-9]+__', '') }} {{ input[key] }}
+{% endfor %}
 {% endfor %}
 {% endif %}
 
 {% if dynamic_outputs is defined %}
+{% for input in dynamic_outputs %}
 [OUTPUT]
 {% for key in input %}
-    {{ key }} {{ input[key] }}
+     {{ key | regex_replace ('^[0-9]+__', '') }} {{ input[key] }}
+{% endfor %}
+{% endfor %}
+{% endif %}
+
+{% if dynamic1_outputs is defined %}
+{% for input in dynamic1_outputs %}
+[OUTPUT]
+{% for key in input %}
+     {{ key | regex_replace ('^[0-9]+__', '') }} {{ input[key] }}
+{% endfor %}
+{% endfor %}
+{% endif %}
+
+{% if dynamic2_outputs is defined %}
+{% for input in dynamic2_outputs %}
+[OUTPUT]
+{% for key in input %}
+     {{ key | regex_replace ('^[0-9]+__', '') }} {{ input[key] }}
+{% endfor %}
 {% endfor %}
 {% endif %}
 
 {% if dynamic_filters is defined %}
+{% for input in dynamic_filters %}
 [FILTER]
 {% for key in input %}
-    {{ key }} {{ input[key] }}
+     {{ key | regex_replace ('^[0-9]+__', '') }} {{ input[key] }}
+{% endfor %}
+{% endfor %}
+{% endif %}
+
+{% if dynamic1_filters is defined %}
+{% for input in dynamic1_filters %}
+[FILTER]
+{% for key in input %}
+     {{ key | regex_replace ('^[0-9]+__', '') }} {{ input[key] }}
+{% endfor %}
+{% endfor %}
+{% endif %}
+
+{% if dynamic2_filters is defined %}
+{% for input in dynamic2_filters %}
+[FILTER]
+{% for key in input %}
+     {{ key | regex_replace ('^[0-9]+__', '') }} {{ input[key] }}
+{% endfor %}
 {% endfor %}
 {% endif %}

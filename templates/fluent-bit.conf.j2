@@ -7,15 +7,17 @@
 {% endif %}
 {% if static_log_level is defined %}
     Log_Level    {{ static_log_level }}
-{% endif %}    
+{% endif %}
 {% if static_storage_path is defined %}
-    storage.path {{ static_storage_path }}
+    Storage.path {{ static_storage_path }}
 {% endif %}
     Parsers_File parsers.conf
 {% if static_parsers_file is defined %}
-    storage.path {{ static_parsers_file }}
+    Parsers_File {{ static_parsers_file }}
 {% endif %}
+{% if static_plugins_file is defined %}
     Plugins_File plugins.conf
+{% endif %}
 {% if static_enable_metrics is defined %}
     HTTP_Server  {{ (static_enable_metrics | bool) | ternary('On', 'Off' ) }}
 {% endif %}
@@ -25,28 +27,34 @@
 {% if static_metrics_listen_port is defined %}
     HTTP_Port    {{ static_metrics_listen_port }}
 {% endif %}
-[INPUT]
-#ONLY STATIC CONFIG IN THIS SECTION
 
-{% if fluentbit_outputs is defined %}
+#ONLY STATIC CONFIG IN THIS SECTION
+[INPUT]
+    Name            fluentbit_metrics
+    Tag             ${HOSTNAME}_metrics
+    Scrape_interval 5
+
 [OUTPUT]
-    name:           forward
-    match:          '*'
-    host:           10.7.0.5
-    port:           24224
-    shared_key:     ${SHAREDKEY}
-    self_hostname:  ${HOSTNAME}
-    tls:            on
-    tls.verify:     off
-    name:           prometheus_exporter
-    match:          node_metrics
-    host:           0.0.0.0
-    port:           2021
+    Name           forward
+    Match          *
+    Host           {{ fluentd_host }}
+    Port           {{ fluentd_port }}
+    Shared_key     ${SHAREDKEY}
+    Self_hostname  ${HOSTNAME}
+    Tls            on
+    Tls.verify     off
+[OUTPUT]
+    Name           prometheus_exporter
+    Match          ${HOSTNAME}_metrics
+    Host           0.0.0.0
+    Port           {{ prometheus_port }}
+    Add_label      node ${HOSTNAME}
+{% if fluentbit_outputs is defined %}
 {% for key in input %}
     {{ key }} {{ input[key] }}
 {% endfor %}
 {% endif %}
 
-[FILTER]
+#[FILTER]
 #ONLY STATIC CONFIG IN THIS SECTION
 @INCLUDE /etc/fluent-bit/dynamic/*.conf

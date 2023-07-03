@@ -1,8 +1,19 @@
 ---
 
+- name: start fluentbit service
+  service:
+    name: fluent-bit
+    state: started
+  become: true
+
+- name: stop fluentbit service
+  service:
+    name: fluent-bit
+    state: stopped
+  become: true
+
 - name: restart fluentbit service
   service:
     name: fluent-bit
-    enabled: true
     state: restarted
   become: true

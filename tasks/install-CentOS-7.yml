@@ -14,7 +14,7 @@
     name: fluent-bit
     state: present
     update_cache: true
-  notify: restart fluentbit service
+  notify: start fluentbit service
 
 - name: Install CentOS-7 | Create dynamic conf directory
   file:
@@ -23,3 +23,4 @@
     group: root
     mode: 0644
     state: directory
+  notify: stop fluentbit service

@@ -5,14 +5,14 @@
     src: fluent-bit.conf.j2
     dest: /etc/fluent-bit/fluent-bit.conf
     mode: 0644
-  notify: restart fluentbit service
+#  notify: restart fluentbit service
 
 - name: Configure | Source Fluentbit dynamic conf
   template:
     src: dynamic.conf.j2
     dest: /etc/fluent-bit/dynamic/dynamic.conf
     mode: 0644
-  notify: restart fluentbit service
+#  notify: restart fluentbit service
 
 #- name: Configure | Source additional Fluentbit conf
 #  template:
